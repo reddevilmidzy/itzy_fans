@@ -39,13 +39,12 @@ def crawling_application(driver):
 
     for tr in tbody.find_elements(By.TAG_NAME, "tr")[:5]:
         tds = tr.find_elements(By.TAG_NAME, "td")
-
         aTag = tds[1].find_element(By.TAG_NAME, 'a')
-        href = aTag.get_attribute("href")
-        keyname = tds[1].get_attribute("innerText")
-        keyname = list(keyname.split())
-        keyname = ' '.join(keyname)
-        now_application.append((keyname, href))
+        url = aTag.get_attribute("href")
+        title = tds[1].get_attribute("innerText")
+        title = list(title.split())
+        title = ' '.join(title)
+        now_application.append((title, url))
 
     before_application = find_new(before_application, now_application, "APPLICATION")
 
