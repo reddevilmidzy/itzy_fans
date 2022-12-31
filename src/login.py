@@ -26,3 +26,4 @@ def login():
     driver.implicitly_wait(5)
     driver.find_element(By.XPATH, '/html/body/form/div[3]/div/div[2]/div/div[2]/input').click()
     driver.implicitly_wait(4)
+    return driver
