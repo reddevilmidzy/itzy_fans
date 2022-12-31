@@ -52,10 +52,16 @@ def crawling_application(driver):
 def find_new(pre, now, community):
     if pre == []:
         return now
-    elif pre == now:
+    elif get_url_list(pre) == get_url_list(now):
         return now
 
     for post in reversed(now):
         if post not in pre:
             update_tweet(post[0], post[1], community)
     return now
+
+def get_url_list(lis):
+    result = []
+    for i in lis:
+        result.append(i[0])
+    return result
