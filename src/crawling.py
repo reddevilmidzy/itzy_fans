@@ -4,7 +4,7 @@ from uploading import update_tweet
 midzy_only_url = "https://fans.jype.com/BoardList?BoardName=MIDZY_2ND_ONLY"
 application_url = "https://fans.jype.com/BoardList?BoardName=itzy_Application"
 before_midzy_only = []
-before_app = []
+before_application = []
 
 
 def crawling_midzy(driver):
@@ -26,6 +26,28 @@ def crawling_midzy(driver):
         now_midzy_only.append((title, url))
 
     before_midzy_only = find_new(before_midzy_only, now_midzy_only, "MIDZY 2ND ONLY")
+
+
+def crawling_application(driver):
+    global before_application
+    now_application = []
+    driver.implicitly_wait(2)
+    driver.get(application_url)
+
+    table = driver.find_element(By.XPATH, '/html/body/form/div[4]/div/div[2]/div/div[2]/div/div[2]/div/table/tbody/tr[1]/td/div[2]/table')
+    tbody = table.find_element(By.TAG_NAME, "tbody")
+
+    for tr in tbody.find_elements(By.TAG_NAME, "tr")[:5]:
+        tds = tr.find_elements(By.TAG_NAME, "td")
+
+        aTag = tds[1].find_element(By.TAG_NAME, 'a')
+        href = aTag.get_attribute("href")
+        keyname = tds[1].get_attribute("innerText")
+        keyname = list(keyname.split())
+        keyname = ' '.join(keyname)
+        now_application.append((keyname, href))
+
+    before_application = find_new(before_application, now_application, "APPLICATION")
 
 
 def find_new(pre, now, community):
