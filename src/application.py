@@ -7,3 +7,6 @@ def start():
     crawling_midzy(driver)
     crawling_application(driver)
 
+sched = BlockingScheduler()
+sched.add_job(start, 'interval', seconds=60)
+sched.start()
